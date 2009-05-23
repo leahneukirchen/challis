@@ -53,42 +53,39 @@ class Challis < String
          
          text = pfmt text
          text = "<p>#{text}</p>"  unless type =~ /\A(=+) \z/ || text.empty?  #/
+
+         closing = to_close.slice!(0, [depth - new_depth, 0].max).join
          
-         
-         if new_depth > depth
+         fresh = new_depth > depth
+         if fresh
            case type
-           when '* ':  to_close << %Q{</ul>}
-           when '# ':  to_close << %Q{</ol>}
-           when '" ':  to_close << %Q{</blockquote>}
-           when /::/:  to_close << %Q{</dl>}
+           when '* ':  to_close.unshift %Q{</li></ul>}
+           when '# ':  to_close.unshift %Q{</li></ol>}
+           when '" ':  to_close.unshift %Q{</blockquote>}
+           when /::/:  to_close.unshift %Q{</dd></dl>}
            end
          end
-         
+
          case type
-         when '* ':        text = %Q{<li>#{text}}; to_close << "</li>"
-         when '# ':        text = %Q{<li>#{text}}; to_close << "</li>"
-         when /\A(=+) \z/: text = %Q{<h#{$1.size}>#{text}</h#{$1.size}>}
-         when /\A:: ?\z/:  text = %Q{<dd>#{text}}; to_close << "</dd>"
-         when /(.*):: \z/: text = %Q{<dt>#{$1}</dt><dd>#{text}}; to_close << "</dd>"
-         else to_close << ""
+         when '* ':        text = "<li>" + text
+         when '# ':        text = "<li>" + text
+         when /\A(=+) \z/: text = "<h#{$1.size}>#{text}</h#{$1.size}>"
+         when /\A:: ?\z/:  text = "<dd>" + text
+         when /(.*):: \z/: text = "<dt>#{$1}</dt><dd>" + text
          end
          
          text.gsub!(/\A<(\w+)>/, %Q{<\\1 id="#{id}">})  if id
          
-         if new_depth > depth
-           case type
-           when '* ': text = %Q{<ul>#{text}}
-           when '# ': text = %Q{<ol>#{text}}
-           when '" ': text = %Q{<blockquote>#{text}}
-           when /::/: text = %Q{<dl>#{text}}
-           end
+         case type
+         when '* ': text = (fresh ? "<ul>"         : "</li>") + text
+         when '# ': text = (fresh ? "<ol>"         : "</li>") + text
+         when '" ': text = (fresh ? "<blockquote>" : ""     ) + text
+         when /::/: text = (fresh ? "<dl>"         : "</dd>") + text
          end
-         
-         (2 * (depth - new_depth) + 1).times { text = "#{to_close.pop}\n\n#{text}" }
-         
+
          depth = new_depth
          
-         text
+         closing + "\n\n" + text
        end
      }.compact.join << to_close.reverse.join).lstrip + "\n"
   end

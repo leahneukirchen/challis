@@ -48,12 +48,12 @@ of three
 
 * entries.
 IN
-<ul><li><p>A simple list</p></li>
+<ul><li><p>A simple list</p>
 
-<li><p>with a total
-of three</p></li>
+</li><li><p>with a total
+of three</p>
 
-<li><p>entries.</p></li></ul>
+</li><li><p>entries.</p></li></ul>
 OUT
 
     fmt(<<'IN', <<'OUT')
@@ -62,12 +62,12 @@ OUT
 of three
 * entries.
 IN
-<ul><li><p>A simple list</p></li>
+<ul><li><p>A simple list</p>
 
-<li><p>with a total
-of three</p></li>
+</li><li><p>with a total
+of three</p>
 
-<li><p>entries.</p></li></ul>
+</li><li><p>entries.</p></li></ul>
 OUT
 
     fmt(<<'IN', <<'OUT')
@@ -79,9 +79,9 @@ OUT
 IN
 <ul><li><p>Item 1</p>
 
-<p>Still item 1</p></li>
+<p>Still item 1</p>
 
-<li><p>Item 2</p></li></ul>
+</li><li><p>Item 2</p></li></ul>
 OUT
 
   end
@@ -95,12 +95,12 @@ of three
 
 # entries.
 IN
-<ol><li><p>A simple list</p></li>
+<ol><li><p>A simple list</p>
 
-<li><p>with a total
-of three</p></li>
+</li><li><p>with a total
+of three</p>
 
-<li><p>entries.</p></li></ol>
+</li><li><p>entries.</p></li></ol>
 OUT
 
     fmt(<<'IN', <<'OUT')
@@ -109,12 +109,12 @@ OUT
 of three
 # entries.
 IN
-<ol><li><p>A simple list</p></li>
+<ol><li><p>A simple list</p>
 
-<li><p>with a total
-of three</p></li>
+</li><li><p>with a total
+of three</p>
 
-<li><p>entries.</p></li></ol>
+</li><li><p>entries.</p></li></ol>
 OUT
   end
 
@@ -128,13 +128,13 @@ bar:: a place to get drinks
 
 :: also, see foo.
 IN
-<dl><dt>foo</dt><dd><p>a metasyntactic variable</p></dd>
+<dl><dt>foo</dt><dd><p>a metasyntactic variable</p>
 
-<dt>hui buh</dt><dd><p>a ghost</p></dd>
+</dd><dt>hui buh</dt><dd><p>a ghost</p>
 
-<dt>bar</dt><dd><p>a place to get drinks</p></dd>
+</dd><dt>bar</dt><dd><p>a place to get drinks</p>
 
-<dd><p>also, see foo.</p></dd></dl>
+</dd><dd><p>also, see foo.</p></dd></dl>
 OUT
 
     # no compact syntax for now.
@@ -269,11 +269,9 @@ IN
 <blockquote><p>Blockquotes are simply introduced by a quotation mark and a space at
 the beginning of the line.</p>
 
-<p>You can continue them by using proper indentation.</p><blockquote><p>This is how you nest them.</p></blockquote>
+<p>You can continue them by using proper indentation.</p>
 
-
-
-
+<blockquote><p>This is how you nest them.</p></blockquote>
 
 <p>Back in the outer blockquote.</p></blockquote>
 OUT
@@ -316,22 +314,18 @@ piece of code
 
   [[image]]
 IN
-<ul><li><p>A list item</p></li>
+<ul><li><p>A list item</p>
 
-<li><p>that includes a</p>
+</li><li><p>that includes a</p>
 
-<p>paragraph</p><dl><dt>definition list</dt><dd><ol><li><p>with a numbered list</p></ol>
+<p>paragraph</p>
 
-</li>
+<dl><dt>definition list</dt><dd>
 
-
+<ol><li><p>with a numbered list</p></li></ol>
 
 <p>and a</p><pre><code>piece of code
-</code></pre></dl>
-
-</dd>
-
-
+</code></pre></dd></dl>
 
 <p>and an</p>
 
