@@ -53,6 +53,10 @@ class Challis
 end
 ---
 
+" Block quotes are introduced by a double-quote and whitespace.
+
+  Of course, they nest as well.
+
 Headers are marked up with `=`:
 
 = Level 1 header (h1)
@@ -90,8 +94,8 @@ Sometimes it is useful {foo to markup spans of text} (= `<span class="foo">`).
 *italic*  **bold**  `code`  linebreak\\  {span ...}
 [url]  [link text url]  [[alt text imageurl]]
 
-* unordered     # ordered       definition:: list
-* list          # list          another term:: its definition
+* unordered     # ordered       definition:: list     " blockquote
+* list          # list          another term:: defn   also quoted
 
 = header 1      {{class names   = #id header
 == header 2     }}              * #id you can link to this item
