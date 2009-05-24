@@ -3,7 +3,7 @@
 # Copyright (C) 2009 Christian Neukirchen <purl.org/net/chneukirchen>
 #
 # Challis is freely distributable under the terms of an MIT-style license.
-# See COPYING or http://www.opensource.org/licenses/mit-license.php.
+# See README or <http://www.opensource.org/licenses/mit-license.php>.
 
 class Challis < String
   def pfmt(t)
@@ -34,14 +34,14 @@ class Challis < String
     depth = 0
     to_close = []
 
-    (split(/\n\n+|(?=^(?:  )*(?:\* |# |=+ ))|(---.*?^---)|^(\{\{[\w:. -]+)|^(\}\})/m).map { |par|
+    (split(/\n\n+|(?=^(?:  )*(?:\* |# |=+ ))|^(---.*?^---)|^(\{\{[\w:. -]+)|^(\}\})/m).map { |par|
        case par
        when /\A---html\n(.*)^---/m: $1
        when /\A---\n(.*)^---/m:     %Q{<pre><code>#{prefmt $1}</code></pre>}
        when /\A\{\{([\w:. -]+)\z/:  %Q{<div class="#{$1}">}
        when "}}":                   %Q{</div>}
        when /\A\s*\z/:              nil  # ignore
-       when /\A((?:  )*)((?:\* |# |" |.*:: ?|=+ )?)(.*)/m  #/
+       when /\A((?:  )*)((?:\* |# |" |.*::(?: |$)|=+ )?)(.*)/m  #/
          indent, type, text = $1, $2, $3
          
          new_depth = indent.size/2

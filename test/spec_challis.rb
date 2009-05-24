@@ -1,3 +1,4 @@
+require 'bacon'
 require 'challis'
 
 describe "Challis" do
@@ -354,6 +355,18 @@ IN
 <p>Yada yada yada...</p>
 
 <p>Foo.</p></div>
+OUT
+  end
+
+  should "not fail on special cases" do
+    fmt(<<'IN', <<'OUT')
+These are---I think---long dashes.
+
+Test::Unit
+IN
+<p>These are---I think---long dashes.</p>
+
+<p>Test::Unit</p>
 OUT
   end
 end
