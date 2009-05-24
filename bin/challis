@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby -s
+
+$: << "#{File.dirname(__FILE__)}/../lib"
+require 'challis'
+
+if $t                           # -t  tidy HTML
+  out = IO.popen("tidy -i -q -", "w")
+elsif $c                        # -c  check HTML
+  out = IO.popen("tidy -e -q -", "w")
+else
+  out = STDOUT
+end
+
+doc = Challis.new(ARGF.read).to_html
+
+if ($t || $c) && doc !~ /<title>/
+  title = doc[%r{<h(\d)>(.*?)</h\1>}m, 2]
+  doc = "<!DOCTYPE html><title>#{title}</title>#{doc}"
+end
+
+out.puts doc
