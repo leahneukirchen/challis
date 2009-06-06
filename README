@@ -76,6 +76,8 @@ or link to plain URLs like this: [http://github.com/chneukirchen/challis].
 HTML special chars are escaped with the exception of entities
 (e.g. &copy;) which are left as-is.
 
+Any character can be escaped by writing a \\ before it: `void\*`.
+
 Insert images with double braces:
 
 [[alt text here... http://example.org/img.jpg]]

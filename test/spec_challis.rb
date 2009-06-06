@@ -285,12 +285,26 @@ Challis can do *italic* and **bold**.
 They also *work
 for **multiple**
 lines*.
+
+Inline formatting can be \*escaped\*.  \\ produces a backslash.
+
+New\\
+line
+
+\<del\>Raw HTML\</del\>
 IN
 <p>Challis can do <em>italic</em> and <strong>bold</strong>.</p>
 
 <p>They also <em>work
 for <strong>multiple</strong>
 lines</em>.</p>
+
+<p>Inline formatting can be *escaped*.  \ produces a backslash.</p>
+
+<p>New<br>
+line</p>
+
+<p><del>Raw HTML</del></p>
 OUT
   end
 

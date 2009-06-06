@@ -7,7 +7,8 @@
 
 class Challis < String
   def pfmt(t)
-    t.gsub(/&(?!#\d+;|#x[\da-fA-F]+;|\w+;)/, "&amp;"). # keep entities
+    t.gsub(/\\([^\\\n]|\\(?!\n))/) { "&ChallisEscape#{$&[1]};" }.
+      gsub(/&(?!#\d+;|#x[\da-fA-F]+;|\w+;)/, "&amp;"). # keep entities
       gsub("<", "&lt;").
       gsub(">", "&gt;").
       gsub('"', "&quot;").
@@ -20,6 +21,7 @@ class Challis < String
       gsub(/\[(\S+)\]/m,              '<a href="\1">\1</a>').
       gsub(/\[(.*?)\s?(\S+)\]/m,      '<a href="\2">\1</a>').
       gsub(/\{([\w:.-]+) (.*?)\}/m,   '<span class="\1">\2</span>').
+      gsub(/&ChallisEscape(\d+);/) { $1.to_i.chr }.
       strip
   end
   
