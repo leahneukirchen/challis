@@ -43,21 +43,21 @@ class Challis < String
        when "}}":                   %Q{</div>}
        when /\A\s*\z/:              nil  # ignore
        when /\A((?:  )*)((?:\* |# |" |.*::(?: |$)|=+ )?)(.*)/m  #/
-         indent, type, text = $1, $2, $3
+         indent, type, text = $1, $2.strip, $3
 
-         if type =~ /:: \z/
+         if type =~ /::\z/
            dt, type = $`, $&
          end
 
          new_depth = indent.size/2
-         new_depth += 1  unless type.empty? || type =~ /\A(=+) \z/
+         new_depth += 1  unless type.empty? || type =~ /\A(=+)\z/
          
          if text =~ /^#([A-Za-z][\w:.-]*) /  #/
            id, text = $1, $'
          end
          
          text = pfmt text
-         text = "<p>#{text}</p>"  unless type =~ /\A(=+) \z/ || text.empty?  #/
+         text = "<p>#{text}</p>"  unless type =~ /\A(=+)\z/ || text.empty?  #/
 
          closing = to_close.slice!(0, [depth - new_depth, 0].max).join
          
@@ -70,27 +70,27 @@ class Challis < String
 
          if fresh
            case type
-           when '* ':  to_close.unshift %Q{</li></ul>}
-           when '# ':  to_close.unshift %Q{</li></ol>}
-           when '" ':  to_close.unshift %Q{</blockquote>}
-           when ':: ':  to_close.unshift %Q{</dd></dl>}
+           when '*':  to_close.unshift %Q{</li></ul>}
+           when '#':  to_close.unshift %Q{</li></ol>}
+           when '"':  to_close.unshift %Q{</blockquote>}
+           when '::': to_close.unshift %Q{</dd></dl>}
            end
          end
 
          case type
-         when '* ':        text = "<li>" + text
-         when '# ':        text = "<li>" + text
-         when /\A(=+) \z/: text = "<h#{$1.size}>#{text}</h#{$1.size}>"
-         when ':: ': text = (dt.empty? ? "" : "<dt>#{dt}</dt>") + "<dd>" + text
+         when '*':        text = "<li>" + text
+         when '#':        text = "<li>" + text
+         when /\A(=+)\z/: text = "<h#{$1.size}>#{text}</h#{$1.size}>"
+         when '::':       text = (dt.empty? ? "" : "<dt>#{dt}</dt>") + "<dd>" + text
          end
          
          text.gsub!(/\A<(\w+)>/, %Q{<\\1 id="#{id}">})  if id
 
          case type
-         when '* ': text = (fresh ? "<ul>"         : "</li>") + text
-         when '# ': text = (fresh ? "<ol>"         : "</li>") + text
-         when '" ': text = (fresh ? "<blockquote>" : ""     ) + text
-         when ':: ': text = (fresh ? "<dl>"         : "</dd>") + text
+         when '*':  text = (fresh ? "<ul>"         : "</li>") + text
+         when '#':  text = (fresh ? "<ol>"         : "</li>") + text
+         when '"':  text = (fresh ? "<blockquote>" : ""     ) + text
+         when '::': text = (fresh ? "<dl>"         : "</dd>") + text
          end
 
          depth = new_depth
