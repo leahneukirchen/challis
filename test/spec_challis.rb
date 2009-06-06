@@ -363,10 +363,17 @@ OUT
 These are---I think---long dashes.
 
 Test::Unit
+
+* foo
+# bar
 IN
 <p>These are---I think---long dashes.</p>
 
 <p>Test::Unit</p>
+
+<ul><li><p>foo</p></li></ul>
+
+<ol><li><p>bar</p></li></ol>
 OUT
   end
 end
